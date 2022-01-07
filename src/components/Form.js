@@ -62,7 +62,10 @@ const Form = () => {
           </div>
 
           <div className="container-fluid d-flex justify-content-center ">
-            <a className="text-white " to="">
+            <a
+              className="text-white "
+              href="https://github.com/Muhammad-Arsan/MultiStepForm/tree/main"
+            >
               CodeLink
             </a>
           </div>
