@@ -1,11 +1,18 @@
 import React from "react";
 
-const Second = ({ formData, setFormData }) => {
+const Second = ({ formData, setFormData, errors, setErrors, address }) => {
+  const handleAddress = (e) => {
+    console.log(errors);
+    // let tot;
+    // setFormData({ ...formData, address: e.target.value });
+    // setErrors({ tot: e.target.value.length + 1 });
+    // console.log(tot);
+  };
   return (
     <div>
       <form>
         <div className="mb-3 w-50 ">
-          <label for="exampleFirstName" className="form-label">
+          <label htmlFor="exampleFirstName" className="form-label">
             FirstName
           </label>
           <input
@@ -14,13 +21,13 @@ const Second = ({ formData, setFormData }) => {
             id="exampleFirstName"
             aria-describedby="emailHelp"
             value={formData.firstName}
-            onChange={(e) =>
-              setFormData({ ...formData, firstName: e.target.value })
-            }
+            onChange={(e) => {
+              setFormData({ ...formData, firstName: e.target.value });
+            }}
           />
         </div>
         <div className="mb-3 w-50 ">
-          <label for="exampleLastName" className="form-label">
+          <label htmlFor="exampleLastName" className="form-label">
             LastName
           </label>
           <input
@@ -35,7 +42,7 @@ const Second = ({ formData, setFormData }) => {
           />
         </div>
         <div className="mb-3 w-50 ">
-          <label for="example Occupation" className="form-label">
+          <label htmlFor="example Occupation" className="form-label">
             Occupation
           </label>
           <input
@@ -50,7 +57,7 @@ const Second = ({ formData, setFormData }) => {
           />
         </div>
         <div className="mb-3 w-50 ">
-          <label for="exampleAddress" className="form-label">
+          <label htmlFor="exampleAddress" className="form-label">
             Address
           </label>
           <input
@@ -59,13 +66,15 @@ const Second = ({ formData, setFormData }) => {
             id="exampleAddress"
             aria-describedby="emailHelp"
             value={formData.address}
-            onChange={(e) =>
-              setFormData({ ...formData, address: e.target.value })
-            }
+            onChange={(e) => {
+              setFormData({ ...formData, address: e.target.value });
+              address(formData.address);
+            }}
           />
+          {errors?.address}
         </div>
         <div className="mb-3 w-50 ">
-          <label for="exampleInputEmail1" className="form-label">
+          <label htmlFor="exampleInputEmail1" className="form-label">
             Age
           </label>
           <input
@@ -74,9 +83,15 @@ const Second = ({ formData, setFormData }) => {
             id="exampleInputAge"
             aria-describedby="emailHelp"
             value={formData.age}
-            onChange={(e) => setFormData({ ...formData, age: e.target.value })}
+            onChange={(e) => {
+              setFormData({ ...formData, age: e.target.value });
+              address(e.target.value);
+            }}
           />
+          {errors?.age}
         </div>
+        <div>{errors?.error?.addage}</div>
+        <div>{errors?.error?.notEmpty}</div>
       </form>
     </div>
   );
