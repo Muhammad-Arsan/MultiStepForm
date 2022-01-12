@@ -1,6 +1,12 @@
 import React from "react";
 
-const First = ({ formData, setFormData, errors, setErrors }) => {
+const First = ({
+  formData,
+  setFormData,
+  errors,
+  validateEmail,
+  passwordNotMatch,
+}) => {
   return (
     <div>
       <form className="needs-validation">
@@ -15,10 +21,13 @@ const First = ({ formData, setFormData, errors, setErrors }) => {
             aria-describedby="emailHelp"
             required
             value={formData.email}
-            onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
-            }
+            onChange={(e) => {
+              setFormData({ ...formData, email: e.target.value });
+              validateEmail(e.target.value);
+            }}
           />
+          <span style={{ color: "red" }}>{errors?.emailError}</span>
+          {/* {console.log(errors?.emailError)} */}
         </div>
         <div className="mb-3 w-50">
           <label htmlFor="exampleInputPassword1" className="form-label">
@@ -44,11 +53,13 @@ const First = ({ formData, setFormData, errors, setErrors }) => {
             className="form-control"
             id="exampleInputPassword1"
             value={formData.confirmPassword}
-            onChange={(e) =>
-              setFormData({ ...formData, confirmPassword: e.target.value })
-            }
+            onChange={(e) => {
+              setFormData({ ...formData, confirmPassword: e.target.value });
+              passwordNotMatch(e.target.value);
+            }}
           />
-          {errors?.error?.password}
+          {/* {console.log(errors)} */}
+          <span style={{ color: "red" }}> {errors?.password}</span>
         </div>
         <div className="">
           <span style={{ color: "red" }}>{errors?.error?.notEmpty}</span>

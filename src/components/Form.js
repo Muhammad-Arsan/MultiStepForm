@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import First from "./First";
 import Last from "./Last";
 import Second from "./Second";
-
+import validator from "validator";
 const Form = () => {
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState({
@@ -17,17 +17,34 @@ const Form = () => {
   });
   const [errors, setErrors] = useState({});
 
+  const validateEmail = (e) => {
+    if (e.length < 3) {
+      e.length < 3
+        ? setErrors({ emailError: "charecters must be greater than 3" })
+        : setErrors({ emailError: "" });
+    } else {
+      if (validator.isEmail(e)) {
+        setErrors({ emailError: "" });
+      } else {
+        setErrors({ emailError: "Invalid Email" });
+      }
+    }
+  };
+  const passwordNotMatch = (e) => {
+    if (formData.password != e) {
+      setErrors({ password: "Password Not match" });
+    } else {
+      setErrors({ password: "" });
+    }
+  };
   const handlePassword = () => {
-    // let errors = {};
     if (!formData.email || !formData.password || !formData.confirmPassword) {
-      errors.notEmpty = "Fields must be Filled";
+      setErrors({ notEmpty: "Fields must be Filled" });
     } else if (formData.password != formData.confirmPassword) {
-      errors.password = "Password Not match";
+      setErrors({ password: "Password Not match" });
     } else {
       setPage((currPage) => currPage + 1);
-      console.log("passowrd page:", page);
     }
-    setErrors({ error: errors });
   };
   const addres = (e) => {
     if (e.length < 18) {
@@ -51,18 +68,20 @@ const Form = () => {
       !formData.age ||
       !formData.occupation
     ) {
-      errors.notEmpty = "Fields must be Filled";
+      setErrors({ notEmpty: "Fields must be Filled" });
     } else if (formData.address.length < 18 && formData.age < 18) {
-      errors.addage = "address must be 18+ character and age must be 18+";
+      setErrors({
+        addage: "address must be 18+ character and age must be 18+",
+      });
     } else if (formData.address.length < 18) {
-      errors.address = "address must be 18+ character ";
+      setErrors({ address: "address must be 18+ character" });
     } else if (formData.age < 18) {
-      errors.age = "age must be 18+";
+      setErrors({ age: "age must be 18+" });
     } else {
       setPage((currPage) => currPage + 1);
       console.log("address page", page);
     }
-    setErrors({ error: errors });
+
     console.log("second", errors);
   };
   const submitHanlder = () => {
@@ -95,6 +114,8 @@ const Form = () => {
               setFormData={setFormData}
               errors={errors}
               setErrors={setErrors}
+              validateEmail={validateEmail}
+              passwordNotMatch={passwordNotMatch}
             />
           ) : page === 1 ? (
             <Second

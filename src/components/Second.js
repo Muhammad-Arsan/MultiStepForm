@@ -1,13 +1,7 @@
 import React from "react";
 
-const Second = ({ formData, setFormData, errors, setErrors, address }) => {
-  const handleAddress = (e) => {
-    console.log(errors);
-    // let tot;
-    // setFormData({ ...formData, address: e.target.value });
-    // setErrors({ tot: e.target.value.length + 1 });
-    // console.log(tot);
-  };
+const Second = ({ formData, setFormData, errors, address }) => {
+  console.log(errors);
   return (
     <div>
       <form>
@@ -71,7 +65,7 @@ const Second = ({ formData, setFormData, errors, setErrors, address }) => {
               address(formData.address);
             }}
           />
-          {errors?.address}
+          <span style={{ color: "red" }}>{errors?.address}</span>
         </div>
         <div className="mb-3 w-50 ">
           <label htmlFor="exampleInputEmail1" className="form-label">
@@ -88,10 +82,10 @@ const Second = ({ formData, setFormData, errors, setErrors, address }) => {
               address(e.target.value);
             }}
           />
-          {errors?.age}
+          <span style={{ color: "red" }}> {errors?.age}</span>
         </div>
-        <div>{errors?.error?.addage}</div>
-        <div>{errors?.error?.notEmpty}</div>
+        <div style={{ color: "red" }}>{errors?.addage}</div>
+        <div style={{ color: "red" }}>{errors?.notEmpty}</div>
       </form>
     </div>
   );
